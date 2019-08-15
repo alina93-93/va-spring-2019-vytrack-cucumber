@@ -21,6 +21,10 @@ public abstract class NavigationBar {
     public NavigationBar(){
         PageFactory.initElements(Driver.get(), this);
     }
+    @FindBy(css = "#user-menu>a")
+    public WebElement userFullName;
+    @FindBy(linkText = "Logout")
+    public WebElement logOutLink;
 
     public WebElement getTab(String tab) {
         String tabXpath = "//span[@class='title title-level-1' and contains(text(), '" + tab + "')]";
@@ -51,6 +55,11 @@ public abstract class NavigationBar {
         WebDriverWait wait = new WebDriverWait(Driver.get(), 5);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.loader-mask.shown")));
 
+    }
+    public void logOut(){
+        waitForUIOverlay();
+        BrowserUtils.waitForClickability(userFullName, 5).click();
+        BrowserUtils.waitForClickability(logOutLink,5).click();
     }
 
     public void logOut(){
