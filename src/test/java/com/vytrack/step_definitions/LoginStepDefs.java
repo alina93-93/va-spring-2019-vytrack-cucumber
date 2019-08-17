@@ -46,12 +46,6 @@ public class LoginStepDefs {
         loginPage.login(username, password);
 
     }
-    @When("I login as a store manager")
-    public void i_login_as_a_store_manager() {
-        System.out.println("Logging in as a store manager");
-        LoginPage loginPage = new LoginPage();
-        loginPage.login("storemanager93", "UserUser123");
-    }
 
     @When("I login as a store manager")
     public void i_login_as_a_store_manager() {
