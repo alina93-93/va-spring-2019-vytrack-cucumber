@@ -1,5 +1,6 @@
 package com.vytrack.step_definitions;
 
+
 import com.vytrack.utilities.ConfigurationReader;
 import com.vytrack.utilities.Driver;
 import cucumber.api.Scenario;
@@ -12,33 +13,35 @@ import java.util.concurrent.TimeUnit;
 
 public class Hooks {
 
-    @Before("@database")
-    public void setUpDBCon(){
-        System.out.println("Setting up DB connection");
-    }
+
+
     @Before
     public void setUp(){
         System.out.println("Before hooks");
         Driver.get().get(ConfigurationReader.get("url"));
         Driver.get().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
+
+    @Before("@database")
+    public void setUpDBCOnn(){
+        System.out.println("Setting up DB connection");
+    }
+
     @After
     public void tearDown(Scenario scenario){
         System.out.println("After hooks");
-
+        // check if the scenario is failed
         if (scenario.isFailed()){
-            //take a screenshot
-            final byte [] screenshot = ((TakesScreenshot)
-                    Driver.get()).getScreenshotAs(OutputType.BYTES);
+            // take that screenshot
+            final byte[] screenshot = ((TakesScreenshot) Driver.get()).getScreenshotAs(OutputType.BYTES);
+            // attach the scenario to the report
             scenario.embed(screenshot, "image/png");
         }
         Driver.closeDriver();
-
     }
+
     @After("@database")
-    public void tearDownConectoin(){
+    public void tearDownConnection(){
         System.out.println("Closing DB connection");
     }
-
-
 }

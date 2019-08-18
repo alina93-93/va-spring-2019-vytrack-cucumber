@@ -24,3 +24,4 @@ Feature: Navigation menu options
     Given I login as a "sales manager"
     When I navigate to "Fleet" "Vehicles"
     Then the page title should be "All - Car - Entities - System - Car - Entities - System"
+
